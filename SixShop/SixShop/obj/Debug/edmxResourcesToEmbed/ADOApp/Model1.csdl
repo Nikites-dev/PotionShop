@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SixShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Authorization">
+    <Key>
+      <PropertyRef Name="IdAuth" />
+    </Key>
+    <Property Name="IdAuth" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Authorization_User" FromRole="Authorization" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Basket">
+    <Key>
+      <PropertyRef Name="IdBasket" />
+    </Key>
+    <Property Name="IdBasket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <Property Name="IdItem" Type="Int32" Nullable="false" />
+    <Property Name="IdOrder" Type="Int32" Nullable="false" />
+    <Property Name="Trueby" Type="Boolean" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_Basket_Item" FromRole="Basket" ToRole="Item" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Basket_Order" FromRole="Basket" ToRole="Order" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Basket_User" FromRole="Basket" ToRole="User" />
+  </EntityType>
+  <EntityType Name="ContrAgent">
+    <Key>
+      <PropertyRef Name="IdCA" />
+    </Key>
+    <Property Name="IdCA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Info" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_Item_ContrAgent" FromRole="ContrAgent" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="IdItem" />
+    </Key>
+    <Property Name="IdItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Cost" Type="Int32" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="IdCA" Type="Int32" />
+    <Property Name="Count" Type="Int32" />
+    <NavigationProperty Name="Basket" Relationship="Self.FK_Basket_Item" FromRole="Item" ToRole="Basket" />
+    <NavigationProperty Name="ContrAgent" Relationship="Self.FK_Item_ContrAgent" FromRole="Item" ToRole="ContrAgent" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+    </Key>
+    <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateBy" Type="DateTime" Precision="0" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Basket" Relationship="Self.FK_Basket_Order" FromRole="Order" ToRole="Basket" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="IdRole" />
+    </Key>
+    <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdRole" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Authorization" Relationship="Self.FK_Authorization_User" FromRole="User" ToRole="Authorization" />
+    <NavigationProperty Name="Basket" Relationship="Self.FK_Basket_User" FromRole="User" ToRole="Basket" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Authorization_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Authorization" Type="Self.Authorization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Authorization">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Basket_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="IdItem" />
+      </Principal>
+      <Dependent Role="Basket">
+        <PropertyRef Name="IdItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Basket_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="IdOrder" />
+      </Principal>
+      <Dependent Role="Basket">
+        <PropertyRef Name="IdOrder" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Basket_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Basket">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_ContrAgent">
+    <End Role="ContrAgent" Type="Self.ContrAgent" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContrAgent">
+        <PropertyRef Name="IdCA" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="IdCA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="IdRole" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="IdRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SixShopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authorization" EntityType="Self.Authorization" />
+    <EntitySet Name="Basket" EntityType="Self.Basket" />
+    <EntitySet Name="ContrAgent" EntityType="Self.ContrAgent" />
+    <EntitySet Name="Item" EntityType="Self.Item" />
+    <EntitySet Name="Order" EntityType="Self.Order" />
+    <EntitySet Name="Role" EntityType="Self.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_Authorization_User" Association="Self.FK_Authorization_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Authorization" EntitySet="Authorization" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Basket_Item" Association="Self.FK_Basket_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="Basket" EntitySet="Basket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Basket_Order" Association="Self.FK_Basket_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="Basket" EntitySet="Basket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Basket_User" Association="Self.FK_Basket_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Basket" EntitySet="Basket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_ContrAgent" Association="Self.FK_Item_ContrAgent">
+      <End Role="ContrAgent" EntitySet="ContrAgent" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

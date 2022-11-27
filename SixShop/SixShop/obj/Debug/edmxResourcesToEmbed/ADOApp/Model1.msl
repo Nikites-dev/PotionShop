@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SixShopModelStoreContainer" CdmEntityContainer="SixShopEntities">
+    <EntitySetMapping Name="Authorization">
+      <EntityTypeMapping TypeName="SixShopModel.Authorization">
+        <MappingFragment StoreEntitySet="Authorization">
+          <ScalarProperty Name="IdAuth" ColumnName="IdAuth" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Basket">
+      <EntityTypeMapping TypeName="SixShopModel.Basket">
+        <MappingFragment StoreEntitySet="Basket">
+          <ScalarProperty Name="IdBasket" ColumnName="IdBasket" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="IdItem" ColumnName="IdItem" />
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+          <ScalarProperty Name="Trueby" ColumnName="Trueby" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContrAgent">
+      <EntityTypeMapping TypeName="SixShopModel.ContrAgent">
+        <MappingFragment StoreEntitySet="ContrAgent">
+          <ScalarProperty Name="IdCA" ColumnName="IdCA" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Info" ColumnName="Info" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Item">
+      <EntityTypeMapping TypeName="SixShopModel.Item">
+        <MappingFragment StoreEntitySet="Item">
+          <ScalarProperty Name="IdItem" ColumnName="IdItem" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="IdCA" ColumnName="IdCA" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order">
+      <EntityTypeMapping TypeName="SixShopModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+          <ScalarProperty Name="DateBy" ColumnName="DateBy" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="SixShopModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+          <ScalarProperty Name="NameRole" ColumnName="NameRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SixShopModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="SixShopModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
